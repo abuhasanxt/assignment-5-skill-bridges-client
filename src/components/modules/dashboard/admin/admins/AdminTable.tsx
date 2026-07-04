@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { DataTable } from "@/components/shared/data-table/DataTable";
@@ -166,7 +167,7 @@ export default function AdminTable({ initialQueryString }: AdminTableProps) {
         </CardHeader>
         <CardContent className="p-6">
           {(() => {
-            "".log(
+            console.log(
               "[DEBUG AdminTable] Rendering - error:",
               error,
               "data?.data:",
