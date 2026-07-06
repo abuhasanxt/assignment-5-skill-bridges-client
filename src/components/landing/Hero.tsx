@@ -6,12 +6,12 @@ import { Star, Calendar, CheckCircle, Users, BookOpen } from "lucide-react";
 
 export function Hero() {
   return (
-    <section className="relative min-h-[calc(100vh-4rem)] flex items-center overflow-hidden bg-[#222831]">
+    <section className="relative min-h-[calc(100vh-4rem)] overflow-hidden bg-gradient-to-br from-[#181C22] via-[#222831] to-[#1E272E] flex items-center">
       {/* Background Gradient Effects */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 ">
         {/* Radial gradient from top-right */}
         <div
-          className="absolute -top-1/2 -right-1/2 w-full h-full opacity-30"
+          className="absolute -top-60 right-0 h-[500px] w-[500px] rounded-full bg-cyan-500/20 blur-[140px]"
           style={{
             background:
               "radial-gradient(circle at 70% 30%, #00ADB5 0%, transparent 50%)",
@@ -19,7 +19,7 @@ export function Hero() {
         />
         {/* Secondary gradient from bottom-left */}
         <div
-          className="absolute -bottom-1/2 -left-1/2 w-full h-full opacity-20"
+          className="absolute -bottom-52 -left-20 h-[420px] w-[420px] rounded-full bg-teal-400/10 blur-[140px]"
           style={{
             background:
               "radial-gradient(circle at 30% 70%, #393E46 0%, transparent 50%)",
@@ -27,7 +27,7 @@ export function Hero() {
         />
         {/* Subtle mesh pattern overlay */}
         <div
-          className="absolute inset-0 opacity-5"
+          className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#00ADB510,transparent_35%),radial-gradient(circle_at_bottom_left,#00ADB508,transparent_40%)]"
           style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2300ADB5' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
           }}
@@ -47,13 +47,16 @@ export function Hero() {
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#EEEEEE] leading-tight mb-6">
-              Connect with Expert Tutors,{" "}
-              <span className="text-[#00ADB5]">Learn Anything.</span>
+            <h1 className="text-5xl lg:text-7xl font-extrabold leading-[1.1] tracking-tight text-white mb-6">
+              Connect with Expert Tutors,
+              <br />
+              <span className="bg-gradient-to-r from-cyan-400 to-teal-300 bg-clip-text text-transparent">
+                Learn Anything.
+              </span>
             </h1>
 
             {/* Subheadline */}
-            <p className="text-lg text-[#EEEEEE]/80 max-w-xl mx-auto lg:mx-0 mb-8 leading-relaxed">
+            <p className="max-w-xl text-lg leading-8 text-gray-300 mb-10">
               SkillBridge is the premier platform for students to find 1-on-1
               mentorship. Book sessions instantly, track your progress, and
               master new skills with industry professionals.
@@ -61,29 +64,28 @@ export function Hero() {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <Button 
+              <Button
                 size="lg"
-                className="bg-[#00ADB5] h-12 w-full hover:bg-[#00ADB5]/90 text-[#222831] font-bold">
-                
+                className="h-14 px-10 rounded-xl bg-[#00ADB5] text-[#222831] font-semibold shadow-xl shadow-cyan-500/30 hover:scale-105 hover:bg-cyan-400 transition-all duration-300"
+              >
                 <Link href="/all-tutors">Explore Subjects</Link>
               </Button>
-      
             </div>
 
             {/* Social Proof Stats */}
             <div className="mt-10 pt-8 border-t border-[#393E46]/50">
-              <div className="grid grid-cols-3 gap-6">
-                <div className="text-center lg:text-left">
+              <div className="mt-12 grid grid-cols-3 gap-5">
+                <div className="rounded-2xl text-center border border-white/10 bg-white/5 backdrop-blur-md py-5 shadow-lg">
                   <div className="text-2xl font-bold text-[#00ADB5]">500+</div>
                   <div className="text-sm text-[#EEEEEE]/60">Expert Tutors</div>
                 </div>
-                <div className="text-center lg:text-left">
+                <div className="rounded-2xl text-center border border-white/10 bg-white/5 backdrop-blur-md py-5 shadow-lg">
                   <div className="text-2xl font-bold text-[#00ADB5]">10k+</div>
-                  <div className="text-sm text-[#EEEEEE]/60">
+                  <div className="text-sm  text-[#EEEEEE]/60">
                     Sessions Booked
                   </div>
                 </div>
-                <div className="text-center lg:text-left">
+                <div className="rounded-2xl text-center border border-white/10 bg-white/5 backdrop-blur-md py-5 shadow-lg">
                   <div className="text-2xl font-bold text-[#00ADB5]">4.9</div>
                   <div className="text-sm text-[#EEEEEE]/60">User Rating</div>
                 </div>
@@ -124,7 +126,7 @@ export function Hero() {
             </div>
 
             {/* Booking Confirmed Notification */}
-            <div className="absolute top-32 right-0 w-64 bg-[#393E46]/80 backdrop-blur-md rounded-xl border border-[#00ADB5]/30 p-4 shadow-2xl">
+          <div className="absolute right-0 top-36 w-72 rounded-2xl border border-cyan-400/20 bg-white/10 backdrop-blur-2xl p-5 shadow-2xl hover:translate-y-1 transition-all duration-300">
               <div className="flex items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-[#00ADB5]/20 flex items-center justify-center">
                   <CheckCircle className="h-5 w-5 text-[#00ADB5]" />
