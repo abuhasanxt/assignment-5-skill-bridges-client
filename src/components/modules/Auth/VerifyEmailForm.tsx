@@ -17,6 +17,7 @@ import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp
 import { Label } from "@/components/ui/label";
 import { IVerifyEmailPayload, verifyEmailZodSchema } from "@/zod/verifyEmail.validation";
 import { useForm } from "@tanstack/react-form";
+import { MailCheck } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -77,13 +78,20 @@ const VerifyEmailForm = ({ email }: VerifyEmailFormProps) => {
   });
 
   return (
-    <Card className="w-full max-w-md mx-auto shadow-md">
-      <CardHeader className="text-center">
-        <CardTitle className="text-2xl font-bold">Verify Your Email</CardTitle>
-        <CardDescription>
-          Enter the 6-digit verification code sent to your email
-        </CardDescription>
-      </CardHeader>
+    <Card className="w-full max-w-md overflow-hidden rounded-3xl border-0 bg-white shadow-2xl">
+      <CardHeader className="space-y-3 bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 px-8 py-10 text-center text-white shadow-lg">
+  <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/20 backdrop-blur">
+    <MailCheck className="h-8 w-8" />
+  </div>
+
+  <CardTitle className="text-3xl font-bold">
+    Verify Email
+  </CardTitle>
+
+  <CardDescription className="text-white/90">
+    Enter the 6-digit verification code sent to your email.
+  </CardDescription>
+</CardHeader>
 
       <CardContent>
         <form
