@@ -2,21 +2,17 @@
 
 import { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import {
-  User,
-  Mail,
-  Phone,
-  Award,
-  Calendar,
-  CheckCircle,
-} from "lucide-react";
+import { User, Mail, Phone, Award, Calendar, CheckCircle } from "lucide-react";
 
 import { ITutorWithRelations } from "@/types/tutor.types";
 import { SmartForm, FormField } from "@/components/shared/data-form/data-form";
 import { DaysOfWeekSelector } from "@/components/shared/days-of-week-selector/days-of-week-selector";
 import { UniversalDateTimePicker } from "@/components/shared/date-time-picker/universal-datetime-picker";
 import { updateTutor } from "@/services/tutor.service";
-import { tutorProfileUpdateSchema, TutorProfileUpdateInput } from "@/zod/tutor-profile.validation";
+import {
+  tutorProfileUpdateSchema,
+  TutorProfileUpdateInput,
+} from "@/zod/tutor-profile.validation";
 import { DaysOfWeek } from "@/types/user.types";
 import { EDUCATION_LEVELS } from "@/lib/constants";
 
@@ -63,13 +59,15 @@ const formatTimeForPicker = (value: string | undefined): string => {
   return value.slice(0, 5);
 };
 
-export function ProfileManagementClient({ tutor }: ProfileManagementClientProps) {
+export function ProfileManagementClient({
+  tutor,
+}: ProfileManagementClientProps) {
   const queryClient = useQueryClient();
   const [updateSuccess, setUpdateSuccess] = useState(false);
 
   // Initialize available days state from tutor data
   const [availableDays, setAvailableDays] = useState<DaysOfWeek[]>(
-    tutor.availableDays || []
+    tutor.availableDays || [],
   );
 
   // Mutation for updating tutor profile
@@ -122,7 +120,10 @@ export function ProfileManagementClient({ tutor }: ProfileManagementClientProps)
           <Card className="lg:col-span-2 xl:col-span-3">
             <CardContent className="pt-6">
               <div className="flex flex-col md:flex-row md:items-center gap-6">
-                <Avatar size="lg" className="h-24 w-24 ring-4 ring-[#00ADB5]/20">
+                <Avatar
+                  size="lg"
+                  className="h-24 w-24 ring-4 ring-[#00ADB5]/20"
+                >
                   <AvatarImage
                     src={tutor.profilePhoto || undefined}
                     alt={tutor.name}
@@ -176,7 +177,9 @@ export function ProfileManagementClient({ tutor }: ProfileManagementClientProps)
                 {updateSuccess && (
                   <div className="flex items-center gap-2 text-green-600 bg-green-50 px-4 py-2 rounded-lg">
                     <CheckCircle className="h-5 w-5" />
-                    <span className="font-medium">Profile updated successfully!</span>
+                    <span className="font-medium">
+                      Profile updated successfully!
+                    </span>
                   </div>
                 )}
               </div>
@@ -184,17 +187,26 @@ export function ProfileManagementClient({ tutor }: ProfileManagementClientProps)
           </Card>
 
           {/* Profile Information Card */}
-          <Card className="h-full">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                <User className="h-5 w-5 text-[#00ADB5]" />
-                Profile Information
-              </CardTitle>
-              <CardDescription>
-                Update your basic profile details
-              </CardDescription>
+          <Card className="h-full overflow-hidden border shadow-lg transition-all duration-300 hover:shadow-xl">
+            <CardHeader className="border-b bg-gradient-to-r from-cyan-50 to-teal-50">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-100">
+                  <User className="h-5 w-5 text-cyan-600" />
+                </div>
+
+                <div>
+                  <CardTitle className="text-xl font-bold">
+                    Profile Information
+                  </CardTitle>
+
+                  <CardDescription className="mt-1">
+                    Update your basic profile details
+                  </CardDescription>
+                </div>
+              </div>
             </CardHeader>
-            <CardContent className="space-y-4">
+
+            <CardContent className="space-y-6 p-6">
               <FormField
                 form={form}
                 name="name"
@@ -227,17 +239,26 @@ export function ProfileManagementClient({ tutor }: ProfileManagementClientProps)
           </Card>
 
           {/* Professional Information Card */}
-          <Card className="h-full">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                <Award className="h-5 w-5 text-[#00ADB5]" />
-                Professional Info
-              </CardTitle>
-              <CardDescription>
-                Update your professional details
-              </CardDescription>
+          <Card className="h-full overflow-hidden border shadow-lg transition-all duration-300 hover:shadow-xl">
+            <CardHeader className="border-b bg-gradient-to-r from-cyan-50 to-teal-50">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-100">
+                  <Award className="h-5 w-5 text-cyan-600" />
+                </div>
+
+                <div>
+                  <CardTitle className="text-xl font-bold">
+                    Professional Information
+                  </CardTitle>
+
+                  <CardDescription className="mt-1">
+                    Update your professional details and qualifications
+                  </CardDescription>
+                </div>
+              </div>
             </CardHeader>
-            <CardContent className="space-y-4">
+
+            <CardContent className="space-y-6 p-6">
               <FormField
                 form={form}
                 name="designation"
@@ -245,11 +266,10 @@ export function ProfileManagementClient({ tutor }: ProfileManagementClientProps)
                 placeholder="e.g., Senior Mathematics Tutor"
               />
 
-              {/* Education Level Select */}
+              {/* Education Level */}
               <div className="grid gap-2">
-                <label className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                  Education Level
-                </label>
+                <label className="text-sm font-medium">Education Level</label>
+
                 <form.Field name="educationLevel">
                   {(field: FieldProps<string>) => (
                     <Select
@@ -265,6 +285,7 @@ export function ProfileManagementClient({ tutor }: ProfileManagementClientProps)
                       >
                         <SelectValue placeholder="Select education level" />
                       </SelectTrigger>
+
                       <SelectContent>
                         {EDUCATION_LEVELS.map((level) => (
                           <SelectItem key={level} value={level}>
@@ -275,18 +296,18 @@ export function ProfileManagementClient({ tutor }: ProfileManagementClientProps)
                     </Select>
                   )}
                 </form.Field>
-                {form.state.fieldMeta.educationLevel?.errors &&
-                  form.state.fieldMeta.educationLevel.errors.length > 0 && (
-                    <p className="text-sm text-destructive">
-                      {form.state.fieldMeta.educationLevel.errors.join(", ")}
-                    </p>
-                  )}
+
+                {form.state.fieldMeta.educationLevel?.errors?.length > 0 && (
+                  <p className="text-sm text-destructive">
+                    {form.state.fieldMeta.educationLevel.errors.join(", ")}
+                  </p>
+                )}
               </div>
 
               <FormField
                 form={form}
                 name="experienceYears"
-                label="Experience Years"
+                label="Experience (Years)"
                 type="number"
                 placeholder="Years of teaching experience"
               />
@@ -294,17 +315,26 @@ export function ProfileManagementClient({ tutor }: ProfileManagementClientProps)
           </Card>
 
           {/* Availability Card */}
-          <Card className="h-full">
-            <CardHeader>
-              <CardTitle className="text-lg font-semibold flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-[#00ADB5]" />
-                Availability
-              </CardTitle>
-              <CardDescription>
-                Set your available days and working hours
-              </CardDescription>
+          <Card className="h-full overflow-hidden border shadow-lg transition-all duration-300 hover:shadow-xl">
+            <CardHeader className="border-b bg-gradient-to-r from-cyan-50 to-teal-50">
+              <div className="flex items-center gap-3">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-cyan-100">
+                  <Calendar className="h-5 w-5 text-cyan-600" />
+                </div>
+
+                <div>
+                  <CardTitle className="text-xl font-bold">
+                    Availability
+                  </CardTitle>
+
+                  <CardDescription className="mt-1">
+                    Set your available days and preferred working hours
+                  </CardDescription>
+                </div>
+              </div>
             </CardHeader>
-            <CardContent className="space-y-4">
+
+            <CardContent className="space-y-6 p-6">
               {/* Available Days */}
               <form.Field name="availableDays">
                 {(field: FieldProps<DaysOfWeek[]>) => (
@@ -315,14 +345,20 @@ export function ProfileManagementClient({ tutor }: ProfileManagementClientProps)
                       setAvailableDays(newDays);
                       field.handleChange(newDays);
                     }}
-                    helperText="select at least one day"
+                    helperText="Select at least one available day"
                     error={
-                      field.state.meta.errors && field.state.meta.errors.length > 0
+                      field.state.meta.errors?.length
                         ? field.state.meta.errors
                             .map((err: unknown) => {
                               if (typeof err === "string") return err;
-                              if (err && typeof err === "object" && "message" in err) {
-                                return String((err as { message: unknown }).message);
+                              if (
+                                err &&
+                                typeof err === "object" &&
+                                "message" in err
+                              ) {
+                                return String(
+                                  (err as { message: unknown }).message,
+                                );
                               }
                               return String(err);
                             })
@@ -335,46 +371,53 @@ export function ProfileManagementClient({ tutor }: ProfileManagementClientProps)
 
               <Separator />
 
-              {/* Availability Times */}
-              <div className="grid grid-cols-2 gap-4">
-                <form.Field name="availabilityStartTime">
-                  {(field: FieldProps<string>) => (
-                    <UniversalDateTimePicker
-                      mode="time"
-                      label="Start Time"
-                      value={field.state.value}
-                      onChange={(value) => {
-                        // Time picker returns string in HH:mm format
-                        const timeValue = typeof value === "string" ? value : "09:00";
-                        field.handleChange(timeValue || "09:00");
-                      }}
-                      placeholder="Select start time"
-                    />
-                  )}
-                </form.Field>
+              {/* Working Hours */}
+              <div>
+                <h4 className="mb-4 text-sm font-semibold text-slate-700">
+                  Working Hours
+                </h4>
 
-                <form.Field name="availabilityEndTime">
-                  {(field: FieldProps<string>) => (
-                    <UniversalDateTimePicker
-                      mode="time"
-                      label="End Time"
-                      value={field.state.value}
-                      onChange={(value) => {
-                        // Time picker returns string in HH:mm format
-                        const timeValue = typeof value === "string" ? value : "17:00";
-                        field.handleChange(timeValue || "17:00");
-                      }}
-                      placeholder="Select end time"
-                    />
-                  )}
-                </form.Field>
+                <div className="grid gap-4 md:grid-cols-2">
+                  <form.Field name="availabilityStartTime">
+                    {(field: FieldProps<string>) => (
+                      <UniversalDateTimePicker
+                        mode="time"
+                        label="Start Time"
+                        value={field.state.value}
+                        onChange={(value) => {
+                          const timeValue =
+                            typeof value === "string" ? value : "09:00";
+                          field.handleChange(timeValue || "09:00");
+                        }}
+                        placeholder="Select start time"
+                      />
+                    )}
+                  </form.Field>
+
+                  <form.Field name="availabilityEndTime">
+                    {(field: FieldProps<string>) => (
+                      <UniversalDateTimePicker
+                        mode="time"
+                        label="End Time"
+                        value={field.state.value}
+                        onChange={(value) => {
+                          const timeValue =
+                            typeof value === "string" ? value : "17:00";
+                          field.handleChange(timeValue || "17:00");
+                        }}
+                        placeholder="Select end time"
+                      />
+                    )}
+                  </form.Field>
+                </div>
               </div>
 
-              {/* Time validation error */}
-              {form.state.errors && form.state.errors.length > 0 && (
-                <p className="text-sm text-destructive">
-                  {form.state.errors.join(", ")}
-                </p>
+              {form.state.errors?.length > 0 && (
+                <div className="rounded-xl border border-red-200 bg-red-50 p-3">
+                  <p className="text-sm text-destructive">
+                    {form.state.errors.join(", ")}
+                  </p>
+                </div>
               )}
             </CardContent>
           </Card>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import * as React from "react";
@@ -116,7 +117,7 @@ export function SmartForm<
 
         <Button
           type="submit"
-          className="w-full"
+          className="w-full bg-[#00ADB5] hover:bg-[#00959d] text-white"
           disabled={mutation.isPending}
           onClick={() => console.log("[SmartForm] Submit button clicked")}
         >
@@ -153,9 +154,8 @@ export function FormField<TData extends Record<string, any>>({
   render,
 }: FormFieldProps<TData>) {
   return (
-    <form.Field
-      name={name}
-      children={(field: any) => (
+    <form.Field name={name}>
+      {(field: any) => (
         <FormItem>
           <FormLabel htmlFor={field.name}>{label}</FormLabel>
           <FormControl>
@@ -199,6 +199,6 @@ export function FormField<TData extends Record<string, any>>({
           )}
         </FormItem>
       )}
-    />
+    </form.Field>
   );
 }

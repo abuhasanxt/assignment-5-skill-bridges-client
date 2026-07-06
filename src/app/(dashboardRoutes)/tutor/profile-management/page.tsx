@@ -3,6 +3,7 @@ import { getUserInfo } from "@/services/auth.service";
 import { redirect } from "next/navigation";
 import { UserRole } from "@/lib/authUtils";
 import { ProfileManagementClient } from "../../../../components/modules/dashboard/tutor/profile-management/ProfileManagementClient";
+import { UserCog } from "lucide-react";
 
 
 /**
@@ -43,18 +44,31 @@ const ProfileManagementPage = async () => {
   const tutor = tutorResponse.data;
 
   return (
-    <div className="w-full px-4 sm:px-6 lg:px-8 py-6">
-      {/* Page Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900">Profile Management</h1>
-        <p className="text-slate-600 mt-1">
-          Update your profile information and availability settings
-        </p>
-      </div>
+   <div className="w-full px-4 py-6 sm:px-6 lg:px-8">
+  {/* Header */}
+  <div className="mb-8 overflow-hidden rounded-3xl bg-gradient-to-r from-indigo-600 via-violet-600 to-purple-600 p-8 text-white shadow-xl">
+    <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+      <div className="flex items-center gap-4">
+        <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/20 backdrop-blur">
+          <UserCog className="h-8 w-8" />
+        </div>
 
-      {/* Client Component with Form */}
-      <ProfileManagementClient tutor={tutor} />
+        <div>
+          <h1 className="text-3xl font-bold">
+            Profile Management
+          </h1>
+
+          <p className="mt-1 text-white/90">
+            Update your profile information and manage your teaching availability.
+          </p>
+        </div>
+      </div>
     </div>
+  </div>
+
+  {/* Client Component */}
+  <ProfileManagementClient tutor={tutor} />
+</div>
   );
 };
 
