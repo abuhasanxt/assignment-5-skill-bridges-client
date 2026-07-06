@@ -2,16 +2,16 @@
 
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { useCallback, useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
 import { MultiSelectApiCombobox } from "@/components/shared/multi-select-api-combobox";
 import { getCategoriesUsedByTutors } from "@/services/category.service";
-import { QUERY_KEYS, CACHE_DURATIONS } from "@/lib/constants";
+
 import { ICategory } from "@/types/category.types";
 import { X, SlidersHorizontal } from "lucide-react";
 
@@ -58,17 +58,23 @@ export function TutorFilters() {
 
   // Sync slider values when URL params change
   useEffect(() => {
-    setExperienceRange([
-      experienceYearsGte ? parseInt(experienceYearsGte) || 0 : 0,
-      experienceYearsLte ? parseInt(experienceYearsLte) || 50 : 50,
-    ]);
+    const t = setTimeout(() => {
+      setExperienceRange([
+        experienceYearsGte ? parseInt(experienceYearsGte) || 0 : 0,
+        experienceYearsLte ? parseInt(experienceYearsLte) || 50 : 50,
+      ]);
+    }, 0);
+    return () => clearTimeout(t);
   }, [experienceYearsGte, experienceYearsLte]);
 
   useEffect(() => {
-    setRateRange([
-      hourlyRateGte ? parseInt(hourlyRateGte) || 0 : 0,
-      hourlyRateLte ? parseInt(hourlyRateLte) || 500 : 500,
-    ]);
+    const t = setTimeout(() => {
+      setRateRange([
+        hourlyRateGte ? parseInt(hourlyRateGte) || 0 : 0,
+        hourlyRateLte ? parseInt(hourlyRateLte) || 500 : 500,
+      ]);
+    }, 0);
+    return () => clearTimeout(t);
   }, [hourlyRateGte, hourlyRateLte]);
 
   const updateQueryParams = useCallback(
@@ -93,7 +99,7 @@ export function TutorFilters() {
 
       router.push(`${pathname}?${params.toString()}`, { scroll: false });
     },
-    [searchParams, router, pathname]
+    [searchParams, router, pathname],
   );
 
   // Apply slider changes for experience
@@ -127,7 +133,9 @@ export function TutorFilters() {
     const newLevels = selectedEducationLevels.includes(level)
       ? selectedEducationLevels.filter((l) => l !== level)
       : [...selectedEducationLevels, level];
-    updateQueryParams({ educationLevel: newLevels.length > 0 ? newLevels : null });
+    updateQueryParams({
+      educationLevel: newLevels.length > 0 ? newLevels : null,
+    });
   };
 
   // Toggle available day
@@ -142,7 +150,8 @@ export function TutorFilters() {
   const handleCategoryChange = (categories: ICategory[]) => {
     const categoryNames = categories.map((c) => c.name);
     updateQueryParams({
-      "tutorCategory.Category.name": categoryNames.length > 0 ? categoryNames : null,
+      "tutorCategory.Category.name":
+        categoryNames.length > 0 ? categoryNames : null,
     });
   };
 
@@ -172,10 +181,30 @@ export function TutorFilters() {
     selectedCategories.length;
 
   // Category fetcher for multi-select - returns proper ApiResponse shape
-  const categoryFetcher = useCallback(async (searchTerm: string): Promise<{ success: true; message: string; data: ICategory[]; meta: { page: number; limit: number; total: number; totalPages: number } }> => {
-    const result = await getCategoriesUsedByTutors(searchTerm);
-    return result as { success: true; message: string; data: ICategory[]; meta: { page: number; limit: number; total: number; totalPages: number } };
-  }, []);
+  const categoryFetcher = useCallback(
+    async (
+      searchTerm: string,
+    ): Promise<{
+      success: true;
+      message: string;
+      data: ICategory[];
+      meta: { page: number; limit: number; total: number; totalPages: number };
+    }> => {
+      const result = await getCategoriesUsedByTutors(searchTerm);
+      return result as {
+        success: true;
+        message: string;
+        data: ICategory[];
+        meta: {
+          page: number;
+          limit: number;
+          total: number;
+          totalPages: number;
+        };
+      };
+    },
+    [],
+  );
 
   return (
     <div className="space-y-6">
@@ -210,7 +239,8 @@ export function TutorFilters() {
         <div className="flex items-center justify-between">
           <Label className="text-sm font-medium">Experience (Years)</Label>
           <span className="text-xs text-muted-foreground">
-            {experienceRange[0]} - {experienceRange[1]} {experienceRange[1] === 50 ? "+" : ""} years
+            {experienceRange[0]} - {experienceRange[1]}{" "}
+            {experienceRange[1] === 50 ? "+" : ""} years
           </span>
         </div>
         <Slider
@@ -235,7 +265,8 @@ export function TutorFilters() {
         <div className="flex items-center justify-between">
           <Label className="text-sm font-medium">Hourly Rate ($)</Label>
           <span className="text-xs text-muted-foreground">
-            ${rateRange[0]} - ${rateRange[1]}{rateRange[1] === 500 ? "+" : ""}
+            ${rateRange[0]} - ${rateRange[1]}
+            {rateRange[1] === 500 ? "+" : ""}
           </span>
         </div>
         <Slider
@@ -319,9 +350,12 @@ export function TutorFilters() {
                 {cat}
                 <button
                   onClick={() => {
-                    const newCategories = selectedCategories.filter((c) => c !== cat);
+                    const newCategories = selectedCategories.filter(
+                      (c) => c !== cat,
+                    );
                     updateQueryParams({
-                      "tutorCategory.Category.name": newCategories.length > 0 ? newCategories : null,
+                      "tutorCategory.Category.name":
+                        newCategories.length > 0 ? newCategories : null,
                     });
                   }}
                   className="ml-1 hover:text-destructive"
