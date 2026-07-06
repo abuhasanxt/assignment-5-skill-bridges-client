@@ -61,104 +61,128 @@ const featuredTutors = [
 
 export function FeaturedTutors() {
   return (
-    <section id="tutors" className="py-20 lg:py-28 bg-[#222831]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between mb-16">
-          <div className="max-w-2xl mb-8 lg:mb-0">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-[#00ADB5]/10 text-[#00ADB5] text-sm font-medium mb-4">
-              Top Rated
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[#EEEEEE] mb-4">
-              Featured Tutors
-            </h2>
-            <p className="text-lg text-[#EEEEEE]/70">
-              Learn from the best. Our top-rated tutors are verified experts with proven track records.
-            </p>
-          </div>
-          <Link href="/all-tutors">
-            <Button
-              variant="outline"
-              className="border-[#00ADB5] text-[#EEEEEE] hover:bg-[#00ADB5]/10"
-            >
-              View all tutors
-              <ArrowRight className="h-4 w-4 ml-2" />
-            </Button>
-          </Link>
-        </div>
+ <section
+  id="tutors"
+  className="relative overflow-hidden py-24 lg:py-32 bg-gradient-to-b from-[#181C22] via-[#222831] to-[#1B2028]"
+>
+  {/* Background Blur */}
+  <div className="absolute inset-0 pointer-events-none">
+    <div className="absolute -top-40 left-0 h-[420px] w-[420px] rounded-full bg-cyan-400/10 blur-[120px]" />
+    <div className="absolute bottom-0 right-0 h-[350px] w-[350px] rounded-full bg-teal-400/10 blur-[120px]" />
+  </div>
 
-        {/* Tutors Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredTutors.map((tutor) => (
-            <Link
-              key={tutor.id}
-              href={`/all-tutors/${tutor.id}`}
-              className="group p-6 rounded-2xl bg-[#393E46]/30 border border-[#393E46] hover:border-[#00ADB5]/50 transition-all duration-300 hover:bg-[#393E46]/50"
-            >
-              {/* Header with Avatar */}
-              <div className="flex items-start justify-between mb-4">
-                <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 rounded-full bg-gradient-to-br from-[#00ADB5] to-[#00ADB5]/50 flex items-center justify-center text-[#222831] font-bold">
-                    {tutor.avatar}
-                  </div>
-                  <div>
-                    <div className="flex items-center gap-1">
-                      <h3 className="font-semibold text-[#EEEEEE]">
-                        {tutor.name}
-                      </h3>
-                      {tutor.isVerified && (
-                        <BadgeCheck className="h-4 w-4 text-[#00ADB5] fill-[#00ADB5]" />
-                      )}
-                    </div>
-                    <p className="text-sm text-[#EEEEEE]/60">{tutor.subject}</p>
-                  </div>
-                </div>
-              </div>
+  <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    {/* Section Header */}
+    <div className="mb-20 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <div className="max-w-2xl">
+        <span className="inline-flex items-center rounded-full border border-cyan-400/20 bg-cyan-400/10 px-5 py-2 text-sm font-semibold text-cyan-300 backdrop-blur-md">
+          ⭐ Top Rated
+        </span>
 
-              {/* Rating */}
-              <div className="flex items-center gap-2 mb-3">
-                <div className="flex items-center gap-1">
-                  <Star className="h-4 w-4 text-[#00ADB5] fill-[#00ADB5]" />
-                  <span className="text-sm font-medium text-[#EEEEEE]">
-                    {tutor.rating}
-                  </span>
-                </div>
-                <span className="text-sm text-[#EEEEEE]/50">
-                  ({tutor.reviews} reviews)
-                </span>
-              </div>
+        <h2 className="mt-6 text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
+          Featured Tutors
+        </h2>
 
-              {/* Bio */}
-              <p className="text-sm text-[#EEEEEE]/70 mb-4 line-clamp-2">
-                {tutor.bio}
-              </p>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-4">
-                {tutor.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="px-2 py-1 text-xs rounded-md bg-[#00ADB5]/10 text-[#00ADB5]"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* Footer */}
-              <div className="flex items-center justify-between pt-4 border-t border-[#393E46]">
-                <div className="flex items-center gap-1 text-sm text-[#EEEEEE]/60">
-                  <Clock className="h-4 w-4 text-[#00ADB5]" />
-                  {tutor.experience}
-                </div>
-                <div className="text-[#00ADB5] font-semibold">
-                  ${tutor.hourlyRate}/hr
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
+        <p className="mt-6 text-lg leading-8 text-gray-400">
+          Learn from the best. Our top-rated tutors are verified experts with
+          years of teaching experience and proven student success.
+        </p>
       </div>
-    </section>
+
+      <Link href="/all-tutors">
+        <Button
+          variant="outline"
+          className="rounded-xl border-cyan-400/30 bg-white/5 text-cyan-300 backdrop-blur-md hover:border-cyan-400 hover:bg-cyan-400 hover:text-[#222831] transition-all duration-300"
+        >
+          View All Tutors
+          <ArrowRight className="ml-2 h-4 w-4" />
+        </Button>
+      </Link>
+    </div>
+
+    {/* Tutors Grid */}
+    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+      {featuredTutors.map((tutor) => (
+        <Link
+          key={tutor.id}
+          href={`/all-tutors/${tutor.id}`}
+          className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 backdrop-blur-xl p-7 shadow-xl transition-all duration-500 hover:-translate-y-3 hover:border-cyan-400/40 hover:bg-white/10 hover:shadow-cyan-500/20"
+        >
+          {/* Glow */}
+          <div className="absolute -right-10 -top-10 h-28 w-28 rounded-full bg-cyan-400/10 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+          {/* Header */}
+          <div className="mb-6 flex items-start justify-between">
+            <div className="flex items-center gap-4">
+              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-cyan-400 to-teal-400 text-lg font-bold text-[#222831] shadow-lg">
+                {tutor.avatar}
+              </div>
+
+              <div>
+                <div className="flex items-center gap-1">
+                  <h3 className="font-bold text-white">
+                    {tutor.name}
+                  </h3>
+
+                  {tutor.isVerified && (
+                    <BadgeCheck className="h-4 w-4 fill-cyan-400 text-cyan-400" />
+                  )}
+                </div>
+
+                <p className="text-sm text-gray-400">
+                  {tutor.subject}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Rating */}
+          <div className="mb-4 flex items-center gap-2">
+            <div className="flex items-center gap-1 rounded-full bg-cyan-400/10 px-3 py-1">
+              <Star className="h-4 w-4 fill-cyan-400 text-cyan-400" />
+              <span className="text-sm font-semibold text-white">
+                {tutor.rating}
+              </span>
+            </div>
+
+            <span className="text-sm text-gray-500">
+              ({tutor.reviews} reviews)
+            </span>
+          </div>
+
+          {/* Bio */}
+          <p className="mb-6 line-clamp-3 text-sm leading-7 text-gray-400">
+            {tutor.bio}
+          </p>
+
+          {/* Tags */}
+          <div className="mb-6 flex flex-wrap gap-2">
+            {tutor.tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-xs font-medium text-cyan-300"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Footer */}
+          <div className="flex items-center justify-between border-t border-white/10 pt-5">
+            <div className="flex items-center gap-2 text-sm text-gray-400">
+              <Clock className="h-4 w-4 text-cyan-400" />
+              {tutor.experience}
+            </div>
+
+            <div className="text-lg font-bold text-cyan-300">
+              ${tutor.hourlyRate}
+              <span className="text-sm font-normal text-gray-400">/hr</span>
+            </div>
+          </div>
+        </Link>
+      ))}
+    </div>
+  </div>
+</section>
   );
 }

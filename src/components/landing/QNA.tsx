@@ -6,6 +6,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import Link from "next/link";
 import { HelpCircle } from "lucide-react";
 
 const faqs = [
@@ -65,7 +66,7 @@ export function QNA() {
             Frequently Asked Questions
           </h2>
           <p className="text-lg text-[#EEEEEE]/70 max-w-2xl mx-auto">
-            Everything you need to know about SkillBridge. Can't find what you're looking for? 
+            Everything you need to know about SkillBridge. Can&rsquo;t find what you&rsquo;re looking for? 
             Feel free to contact us directly.
           </p>
         </div>
@@ -94,9 +95,9 @@ export function QNA() {
             Still have questions?
           </h3>
           <p className="text-[#EEEEEE]/60 mb-4">
-            Can't find the answer you're looking for? Our support team is here to help.
+            Can&rsquo;t find the answer you&rsquo;re looking for? Our support team is here to help.
           </p>
-          <a
+          <Link
             href="/#contact"
             className="inline-flex items-center gap-2 text-[#00ADB5] hover:text-[#00ADB5]/80 font-medium transition-colors"
           >
@@ -114,7 +115,7 @@ export function QNA() {
                 d="M17 8l4 4m0 0l-4 4m4-4H3"
               />
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     </section>
